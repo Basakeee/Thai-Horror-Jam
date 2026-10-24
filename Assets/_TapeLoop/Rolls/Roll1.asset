@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464c20d12be4982a017b7244b41b6ce, type: 3}
+  m_Name: Roll1
+  m_EditorClassIdentifier: Assembly-CSharp:TapeLoop:TapeRoll
+  number: 1
+  title: "\u0E1A\u0E31\u0E19\u0E44\u0E14\u0E25\u0E2D\u0E22"
+  victim: "\u0E20\u0E1E"
+  intro: "\u0E40\u0E17\u0E1B\u0E40\u0E25\u0E48\u0E19\u0E40\u0E2D\u0E07\u0E01\u0E25\u0E32\u0E07\u0E14\u0E36\u0E01\u2026
+    \u0E20\u0E32\u0E1E\u0E01\u0E25\u0E49\u0E2D\u0E07\u0E40\u0E1E\u0E14\u0E32\u0E19\u0E02\u0E2D\u0E07\u0E1A\u0E49\u0E32\u0E19\u0E2B\u0E25\u0E31\u0E07\u0E19\u0E35\u0E49
+    \u2014 \u0E04\u0E37\u0E19\u0E19\u0E35\u0E49\n\u0E20\u0E1E\u0E40\u0E14\u0E34\u0E19\u0E25\u0E07\u0E1A\u0E31\u0E19\u0E44\u0E14\u0E15\u0E2D\u0E19\u0E44\u0E1F\u0E14\u0E31\u0E1A
+    \u0E41\u0E25\u0E49\u0E27\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E25\u0E38\u0E01\u0E02\u0E36\u0E49\u0E19\u0E21\u0E32\u0E2D\u0E35\u0E01"
+  allowReverse: 0
+  maxLength: 0
+  spliceCost: 0
+  startFlags: lights, vacuumStairs
+  startItems: 
+  segments:
+  - id: A
+    title: "\u0E20\u0E1E\u0E15\u0E37\u0E48\u0E19"
+    room: CAM 01
+    clock: 23:40:00
+    length: 6
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -2.5, y: 1}
+      - time: 2
+        position: {x: -2.5, y: 1}
+      - time: 6
+        position: {x: 2.5, y: -2.5}
+    events:
+    - time: 2
+      effect: 0
+      value: 
+      caption: "\u0E20\u0E1E\u0E15\u0E37\u0E48\u0E19 \u2014 \u0E44\u0E14\u0E49\u0E22\u0E34\u0E19\u0E40\u0E2A\u0E35\u0E22\u0E07\u0E40\u0E17\u0E1B\u0E40\u0E25\u0E48\u0E19\u0E40\u0E2D\u0E07\u0E17\u0E35\u0E48\u0E0A\u0E31\u0E49\u0E19\u0E25\u0E48\u0E32\u0E07"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: B
+    title: "\u0E17\u0E32\u0E07\u0E40\u0E14\u0E34\u0E19\u0E0A\u0E31\u0E49\u0E19 2
+      \u2192 \u0E1A\u0E31\u0E19\u0E44\u0E14"
+    room: CAM 04
+    clock: 23:40:20
+    length: 12
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -3.5, y: -1.5}
+      - time: 2
+        position: {x: -2, y: 1.6}
+      - time: 3
+        position: {x: -2, y: 1.6}
+      - time: 6
+        position: {x: 0.5, y: 0}
+      - time: 9
+        position: {x: 2.4, y: 0}
+      - time: 10
+        position: {x: 2.9, y: 0}
+      - time: 11
+        position: {x: 3.5, y: 0.6}
+    events:
+    - time: 3
+      effect: 3
+      value: phone
+      caption: "\u0E2B\u0E22\u0E34\u0E1A\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E02\u0E2D\u0E07\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E21\u0E32\u0E43\u0E0A\u0E49\u0E40\u0E1B\u0E47\u0E19\u0E44\u0E1F\u0E09\u0E32\u0E22"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7
+      effect: 2
+      value: lights
+      caption: "\u0E44\u0E1F\u0E17\u0E31\u0E49\u0E07\u0E1A\u0E49\u0E32\u0E19\u0E14\u0E31\u0E1A"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 10
+      effect: 5
+      value: "\u0E20\u0E1E"
+      caption: "\u0E44\u0E1F\u0E14\u0E31\u0E1A \u0E40\u0E2B\u0E22\u0E35\u0E22\u0E1A\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19\u0E1A\u0E19\u0E02\u0E31\u0E49\u0E19\u0E1A\u0E31\u0E19\u0E44\u0E14
+        \u0E15\u0E01\u0E0A\u0E48\u0E2D\u0E07\u0E1A\u0E31\u0E19\u0E44\u0E14"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: C
+    title: "\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19"
+    room: CAM 08
+    clock: 23:41:00
+    length: 8
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E40\u0E07\u0E32"
+      keys:
+      - time: 0
+        position: {x: -1, y: 2.1}
+      - time: 1.9
+        position: {x: -1, y: 2.1}
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 2
+        position: {x: 3, y: -2}
+      - time: 7
+        position: {x: -0.6, y: 1.2}
+    events:
+    - time: 0.5
+      effect: 2
+      value: lights
+      caption: "\u0E44\u0E1F\u0E22\u0E31\u0E07\u0E14\u0E31\u0E1A\u0E17\u0E31\u0E49\u0E07\u0E1A\u0E49\u0E32\u0E19"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7
+      effect: 6
+      value: 
+      caption: "\u0E20\u0E1E\u0E16\u0E37\u0E2D\u0E44\u0E1F\u0E09\u0E32\u0E22\u0E25\u0E07\u0E21\u0E32\u0E16\u0E36\u0E07\u0E40\u0E04\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E40\u0E25\u0E48\u0E19\u0E40\u0E17\u0E1B"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: phone
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7.5
+      effect: 0
+      value: 
+      caption: "\u0E21\u0E37\u0E14\u0E2A\u0E19\u0E34\u0E17 \u2014 \u0E20\u0E1E\u0E21\u0E2D\u0E07\u0E44\u0E21\u0E48\u0E40\u0E2B\u0E47\u0E19\u0E17\u0E32\u0E07
+        \u0E22\u0E37\u0E19\u0E19\u0E34\u0E48\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E15\u0E23\u0E07\u0E19\u0E31\u0E49\u0E19"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: phone
+      reversible: 1
+      onlyWhenReversed: 0
+  hints:
+  - "\u0E44\u0E1F\u0E08\u0E30\u0E14\u0E31\u0E1A"
+  - "\u0E40\u0E2D\u0E32\u0E44\u0E1F\u0E15\u0E34\u0E14\u0E15\u0E31\u0E27\u0E44\u0E1B\u0E14\u0E49\u0E27\u0E22"
+  - "\u0E15\u0E31\u0E14\u0E2B\u0E25\u0E31\u0E07\u0E2B\u0E22\u0E34\u0E1A \u0E01\u0E48\u0E2D\u0E19\u0E21\u0E37\u0E14"
+  carryOver: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19\u0E22\u0E31\u0E07\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E1A\u0E19\u0E1A\u0E31\u0E19\u0E44\u0E14\u2026\n\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E15\u0E37\u0E48\u0E19\u0E21\u0E32\u0E43\u0E19\u0E04\u0E27\u0E32\u0E21\u0E21\u0E37\u0E14
+    \u2014 \u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E02\u0E2D\u0E07\u0E40\u0E18\u0E2D\u0E2B\u0E32\u0E22\u0E44\u0E1B"
+  spliceCaption: 
+  isPeak: 0
+  isFinal: 0

@@ -1,0 +1,232 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464c20d12be4982a017b7244b41b6ce, type: 3}
+  m_Name: Roll5
+  m_EditorClassIdentifier: Assembly-CSharp:TapeLoop:TapeRoll
+  number: 5
+  title: "\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E01\u0E47\u0E1A\u0E02\u0E2D\u0E07"
+  victim: "\u0E20\u0E1E"
+  intro: "02:30 \u2014 \u0E04\u0E27\u0E32\u0E21\u0E15\u0E32\u0E22\u0E27\u0E19\u0E01\u0E25\u0E31\u0E1A\u0E21\u0E32\u0E2B\u0E32\u0E20\u0E1E\n\u0E40\u0E17\u0E1B\u0E21\u0E49\u0E27\u0E19\u0E19\u0E35\u0E49\u0E2A\u0E31\u0E49\u0E19\u0E01\u0E27\u0E48\u0E32\u0E17\u0E38\u0E01\u0E21\u0E49\u0E27\u0E19:
+    \u0E22\u0E32\u0E27\u0E44\u0E14\u0E49 30 \u0E27\u0E34 \u0E41\u0E25\u0E30\u0E01\u0E32\u0E23\u0E15\u0E48\u0E2D\u0E41\u0E15\u0E48\u0E25\u0E30\u0E04\u0E23\u0E31\u0E49\u0E07\u0E01\u0E34\u0E19\u0E40\u0E17\u0E1B
+    2 \u0E27\u0E34"
+  allowReverse: 1
+  maxLength: 30
+  spliceCost: 2
+  startFlags: lights, shelfTilted
+  startItems: 
+  segments:
+  - id: A
+    title: "\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E01\u0E47\u0E1A\u0E02\u0E2D\u0E07"
+    room: CAM 02
+    clock: 02:30:00
+    length: 8
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -3.5, y: 0}
+      - time: 3
+        position: {x: -1, y: 1}
+      - time: 8
+        position: {x: 1, y: 1.5}
+    events:
+    - time: 2
+      effect: 0
+      value: 
+      caption: "\u0E20\u0E1E\u0E15\u0E32\u0E21\u0E2B\u0E32\u0E17\u0E35\u0E48\u0E21\u0E32\u0E02\u0E2D\u0E07\u0E01\u0E25\u0E48\u0E2D\u0E07\u0E1E\u0E31\u0E2A\u0E14\u0E38"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: B
+    title: "\u0E04\u0E27\u0E32\u0E21\u0E17\u0E23\u0E07\u0E08\u0E33 \u2014 \u0E27\u0E31\u0E19\u0E40\u0E01\u0E34\u0E14\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+    room: MEMORY
+    clock: 
+    length: 12
+    happensOffscreen: 0
+    memory: 1
+    actors:
+    - actor: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      keys:
+      - time: 0
+        position: {x: 0, y: 0.6}
+      - time: 12
+        position: {x: 0, y: 0.6}
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: -1.2, y: 1}
+      - time: 12
+        position: {x: -1.2, y: 1}
+    - actor: "\u0E1E\u0E48\u0E2D"
+      keys:
+      - time: 0
+        position: {x: 1.2, y: 1}
+      - time: 12
+        position: {x: 1.2, y: 1}
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: 0.8, y: -1}
+      - time: 12
+        position: {x: 0.8, y: -1}
+    events:
+    - time: 1
+      effect: 0
+      value: 
+      caption: "\"\u0E41\u0E2E\u0E1B\u0E1B\u0E35\u0E49\u0E40\u0E1A\u0E34\u0E23\u0E4C\u0E18\u0E40\u0E14\u0E22\u0E4C\u0E17\u0E39\u0E49\u0E22\u0E39\u2026\""
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 5
+      effect: 0
+      value: 
+      caption: "(\u0E40\u0E1F\u0E23\u0E21\u0E01\u0E23\u0E30\u0E15\u0E38\u0E01 \u2014
+        \u0E23\u0E2D\u0E22\u0E15\u0E48\u0E2D\u0E40\u0E01\u0E48\u0E32\u2026 \u0E15\u0E31\u0E27\u0E19\u0E31\u0E1A\u0E02\u0E36\u0E49\u0E19\u0E27\u0E48\u0E32
+        0046)"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 8
+      effect: 0
+      value: 
+      caption: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E40\u0E1B\u0E48\u0E32\u0E40\u0E17\u0E35\u0E22\u0E19
+        \u0E17\u0E38\u0E01\u0E04\u0E19\u0E2B\u0E31\u0E27\u0E40\u0E23\u0E32\u0E30"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: C
+    title: "\u0E14\u0E36\u0E07\u0E01\u0E25\u0E48\u0E2D\u0E07"
+    room: CAM 02
+    clock: 02:31:00
+    length: 9
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: 1, y: 1.5}
+      - time: 4
+        position: {x: 2.2, y: 2}
+      - time: 9
+        position: {x: 2.2, y: 2}
+    events:
+    - time: 6
+      effect: 5
+      value: "\u0E20\u0E1E"
+      caption: "\u0E14\u0E36\u0E07\u0E01\u0E25\u0E48\u0E2D\u0E07\u0E08\u0E32\u0E01\u0E0A\u0E31\u0E49\u0E19\u0E25\u0E48\u0E32\u0E07
+        \u2014 \u0E0A\u0E31\u0E49\u0E19\u0E17\u0E31\u0E49\u0E07\u0E15\u0E39\u0E49\u0E25\u0E49\u0E21\u0E17\u0E31\u0E1A"
+      requireFlags: 
+      forbidFlags: shelfSecured
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7
+      effect: 6
+      value: 
+      caption: "\u0E44\u0E14\u0E49\u0E01\u0E25\u0E48\u0E2D\u0E07\u0E1E\u0E31\u0E2A\u0E14\u0E38
+        \u2014 \u0E0A\u0E31\u0E49\u0E19\u0E17\u0E35\u0E48\u0E1C\u0E39\u0E01\u0E44\u0E27\u0E49\u0E44\u0E21\u0E48\u0E02\u0E22\u0E31\u0E1A"
+      requireFlags: shelfSecured
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: D
+    title: "\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19"
+    room: CAM 08
+    clock: 02:20:00
+    length: 7
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -2, y: -2.2}
+      - time: 3
+        position: {x: -1.2, y: -2.4}
+      - time: 7
+        position: {x: 3, y: -2}
+    events:
+    - time: 3
+      effect: 3
+      value: strap
+      caption: "\u0E2B\u0E22\u0E34\u0E1A\u0E2A\u0E32\u0E22\u0E23\u0E31\u0E14\u0E02\u0E2D\u0E07\u0E08\u0E32\u0E01\u0E01\u0E25\u0E48\u0E2D\u0E07\u0E1E\u0E31\u0E2A\u0E14\u0E38"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 5
+      effect: 4
+      value: strap
+      caption: "\u0E20\u0E1E\u0E40\u0E01\u0E47\u0E1A\u0E2A\u0E32\u0E22\u0E23\u0E31\u0E14\u0E04\u0E37\u0E19\u0E01\u0E25\u0E48\u0E2D\u0E07"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: E
+    title: "\u0E2B\u0E49\u0E2D\u0E07\u0E40\u0E01\u0E47\u0E1A\u0E02\u0E2D\u0E07"
+    room: CAM 02
+    clock: 02:28:00
+    length: 7
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -3.5, y: 0}
+      - time: 4
+        position: {x: 2, y: 2}
+      - time: 7
+        position: {x: 0, y: 0}
+    events:
+    - time: 4
+      effect: 1
+      value: shelfSecured
+      caption: "\u0E1C\u0E39\u0E01\u0E0A\u0E31\u0E49\u0E19\u0E01\u0E31\u0E1A\u0E23\u0E32\u0E27\u0E1C\u0E19\u0E31\u0E07\u0E14\u0E49\u0E27\u0E22\u0E2A\u0E32\u0E22\u0E23\u0E31\u0E14"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: strap
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  hints:
+  - "\u0E40\u0E17\u0E1B\u0E44\u0E21\u0E48\u0E1E\u0E2D"
+  - "\u0E21\u0E35\u0E0A\u0E48\u0E27\u0E07\u0E2B\u0E19\u0E36\u0E48\u0E07\u0E17\u0E35\u0E48\u0E22\u0E32\u0E27\u0E40\u0E01\u0E34\u0E19"
+  - "\u0E02\u0E2D\u0E42\u0E17\u0E29\u0E19\u0E30\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+  carryOver: "\u0E0A\u0E34\u0E49\u0E19\u0E04\u0E27\u0E32\u0E21\u0E17\u0E23\u0E07\u0E08\u0E33\u0E16\u0E39\u0E01\u0E17\u0E34\u0E49\u0E07\u0E25\u0E07\u0E01\u0E2D\u0E07\u0E02\u0E49\u0E32\u0E07\u0E40\u0E04\u0E23\u0E37\u0E48\u0E2D\u0E07
+    \u2014 \u0E21\u0E31\u0E19\u0E2A\u0E31\u0E48\u0E19\u0E2D\u0E22\u0E39\u0E48\n\u0E17\u0E38\u0E01\u0E04\u0E19\u0E43\u0E19\u0E1A\u0E49\u0E32\u0E19\u0E15\u0E37\u0E48\u0E19
+    \u0E40\u0E14\u0E34\u0E19\u0E25\u0E07\u0E21\u0E32\u0E23\u0E27\u0E21\u0E01\u0E31\u0E19\u0E17\u0E35\u0E48\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19"
+  spliceCaption: 
+  isPeak: 0
+  isFinal: 0

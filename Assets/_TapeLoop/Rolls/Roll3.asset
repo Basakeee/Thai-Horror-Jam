@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464c20d12be4982a017b7244b41b6ce, type: 3}
+  m_Name: Roll3
+  m_EditorClassIdentifier: Assembly-CSharp:TapeLoop:TapeRoll
+  number: 3
+  title: "\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33"
+  victim: "\u0E41\u0E21\u0E48"
+  intro: "01:00 \u2014 \u0E41\u0E21\u0E48\u0E41\u0E0A\u0E48\u0E19\u0E49\u0E33\u0E43\u0E19\u0E2D\u0E48\u0E32\u0E07\n\u0E1B\u0E38\u0E48\u0E21
+    \u25C4 \u0E01\u0E25\u0E31\u0E1A\u0E14\u0E49\u0E32\u0E19 \u0E43\u0E0A\u0E49\u0E44\u0E14\u0E49\u0E41\u0E25\u0E49\u0E27"
+  allowReverse: 1
+  maxLength: 0
+  spliceCost: 0
+  startFlags: lights
+  startItems: 
+  segments:
+  - id: A
+    title: "\u0E41\u0E21\u0E48\u0E40\u0E02\u0E49\u0E32\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33"
+    room: CAM 05
+    clock: 01:00:00
+    length: 7
+    happensOffscreen: 1
+    memory: 0
+    actors:
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: -2.5, y: -2.2}
+      - time: 3
+        position: {x: 2.2, y: 1.2}
+      - time: 5
+        position: {x: 0, y: 0}
+      - time: 7
+        position: {x: 0, y: 0}
+    events:
+    - time: 3
+      effect: 1
+      value: phoneOnShelf
+      caption: "\u0E41\u0E21\u0E48\u0E40\u0E2A\u0E35\u0E22\u0E1A\u0E0A\u0E32\u0E23\u0E4C\u0E08\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E1A\u0E19\u0E0A\u0E31\u0E49\u0E19\u0E40\u0E2B\u0E19\u0E37\u0E2D\u0E2D\u0E48\u0E32\u0E07"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 6
+      effect: 0
+      value: 
+      caption: "\u0E41\u0E21\u0E48\u0E25\u0E07\u0E41\u0E0A\u0E48\u0E19\u0E49\u0E33"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: B
+    title: "\u0E17\u0E32\u0E07\u0E40\u0E14\u0E34\u0E19\u0E0A\u0E31\u0E49\u0E19 2"
+    room: CAM 04
+    clock: 01:00:10
+    length: 6
+    happensOffscreen: 1
+    memory: 0
+    actors:
+    - actor: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19"
+      keys:
+      - time: 0
+        position: {x: -3.2, y: -1.6}
+      - time: 5
+        position: {x: 2, y: 1.6}
+      - time: 6
+        position: {x: 2, y: 1.6}
+    events:
+    - time: 5
+      effect: 1
+      value: doorHit
+      caption: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19\u0E27\u0E34\u0E48\u0E07\u0E0A\u0E19\u0E1B\u0E23\u0E30\u0E15\u0E39\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33
+        \u2014 \u0E1B\u0E31\u0E07!"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 3
+      effect: 0
+      value: 
+      caption: "(\u0E25\u0E33\u0E42\u0E1E\u0E07\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C
+        \u2014 \u0E40\u0E2A\u0E35\u0E22\u0E07\u0E16\u0E2D\u0E22\u0E2B\u0E25\u0E31\u0E07) 
+        \"\u2026\u0E23\u0E2D\u0E1A\u0E17\u0E35\u0E48\u0E2A\u0E35\u0E48\u0E2A\u0E34\u0E1A\u0E40\u0E08\u0E47\u0E14\""
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 1
+  - id: C
+    title: "\u0E43\u0E19\u0E2D\u0E48\u0E32\u0E07"
+    room: CAM 05
+    clock: 01:00:20
+    length: 8
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: 0, y: 0}
+      - time: 5
+        position: {x: 0, y: 0}
+      - time: 8
+        position: {x: -2.5, y: -2.2}
+    events:
+    - time: 2
+      effect: 0
+      value: 
+      caption: "\u0E0A\u0E31\u0E49\u0E19\u0E27\u0E32\u0E07\u0E2A\u0E31\u0E48\u0E19\u2026"
+      requireFlags: doorHit
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 3
+      effect: 5
+      value: "\u0E41\u0E21\u0E48"
+      caption: "\u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E01\u0E31\u0E1A\u0E2A\u0E32\u0E22\u0E0A\u0E32\u0E23\u0E4C\u0E08\u0E15\u0E01\u0E25\u0E07\u0E2D\u0E48\u0E32\u0E07
+        \u2014 \u0E44\u0E1F\u0E14\u0E39\u0E14"
+      requireFlags: doorHit, phoneOnShelf
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7.5
+      effect: 6
+      value: 
+      caption: "\u0E41\u0E21\u0E48\u0E2D\u0E32\u0E1A\u0E19\u0E49\u0E33\u0E40\u0E2A\u0E23\u0E47\u0E08
+        \u0E40\u0E14\u0E34\u0E19\u0E2D\u0E2D\u0E01\u0E08\u0E32\u0E01\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33"
+      requireFlags: 
+      forbidFlags: doorHit
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  hints:
+  - "\u0E21\u0E31\u0E19\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E40\u0E23\u0E34\u0E48\u0E21\u0E43\u0E19\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33"
+  - "\u0E15\u0E31\u0E14\u0E44\u0E1B\u0E21\u0E31\u0E19\u0E01\u0E47\u0E22\u0E31\u0E07\u0E0A\u0E19"
+  - "\u0E43\u0E2B\u0E49\u0E21\u0E31\u0E19\u0E16\u0E2D\u0E22\u0E01\u0E25\u0E31\u0E1A"
+  carryOver: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E17\u0E35\u0E48\u0E16\u0E39\u0E01\u0E22\u0E49\u0E2D\u0E19
+    \u0E16\u0E2D\u0E22\u0E40\u0E25\u0E22\u0E41\u0E17\u0E48\u0E19\u0E0A\u0E32\u0E23\u0E4C\u0E08\u2026\n\u0E44\u0E1B\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E1B\u0E23\u0E30\u0E15\u0E39\u0E23\u0E30\u0E40\u0E1A\u0E35\u0E22\u0E07\u0E01\u0E23\u0E30\u0E08\u0E01
+    \u0E44\u0E1F\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E01\u0E30\u0E1E\u0E23\u0E34\u0E1A\u0E41\u0E14\u0E07"
+  spliceCaption: 
+  isPeak: 0
+  isFinal: 0

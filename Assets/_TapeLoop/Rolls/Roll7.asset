@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464c20d12be4982a017b7244b41b6ce, type: 3}
+  m_Name: Roll7
+  m_EditorClassIdentifier: Assembly-CSharp:TapeLoop:TapeRoll
+  number: 7
+  title: "\u0E21\u0E49\u0E27\u0E19\u0E2A\u0E38\u0E14\u0E17\u0E49\u0E32\u0E22"
+  victim: "\u0E20\u0E1E"
+  intro: "03:33\n\u0E1A\u0E19\u0E09\u0E25\u0E32\u0E01\u0E21\u0E49\u0E27\u0E19\u0E19\u0E35\u0E49
+    \u2014 \u0E25\u0E32\u0E22\u0E21\u0E37\u0E2D\u0E02\u0E2D\u0E07\u0E20\u0E1E: \"\u0E21\u0E49\u0E27\u0E19\u0E19\u0E35\u0E49\u0E02\u0E2D\u0E07\u0E40\u0E23\u0E32\""
+  allowReverse: 1
+  maxLength: 0
+  spliceCost: 0
+  startFlags: 
+  startItems: 
+  segments:
+  - id: A
+    title: "\u0E2B\u0E19\u0E49\u0E32\u0E40\u0E04\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E40\u0E25\u0E48\u0E19\u0E40\u0E17\u0E1B"
+    room: CAM 08
+    clock: 03:33:00
+    length: 20
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -1, y: 1.6}
+      - time: 20
+        position: {x: -1, y: 1.6}
+    - actor: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      keys:
+      - time: 0
+        position: {x: 0, y: 1.2}
+      - time: 20
+        position: {x: 0, y: 1.2}
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: 0.6, y: 1.4}
+      - time: 20
+        position: {x: 0.6, y: 1.4}
+    - actor: "\u0E1E\u0E48\u0E2D"
+      keys:
+      - time: 0
+        position: {x: -0.4, y: 1.4}
+      - time: 20
+        position: {x: -0.4, y: 1.4}
+    events:
+    - time: 3
+      effect: 0
+      value: 
+      caption: "\u0E20\u0E1E\u0E19\u0E31\u0E48\u0E07\u0E21\u0E2D\u0E07\u0E04\u0E23\u0E2D\u0E1A\u0E04\u0E23\u0E31\u0E27\u0E17\u0E35\u0E48\u0E2B\u0E25\u0E31\u0E1A\u0E2D\u0E22\u0E39\u0E48\u0E1A\u0E19\u0E42\u0E0B\u0E1F\u0E32"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 9
+      effect: 0
+      value: 
+      caption: "\u0E44\u0E21\u0E48\u0E21\u0E35\u0E2D\u0E30\u0E44\u0E23\u0E15\u0E01
+        \u0E44\u0E21\u0E48\u0E21\u0E35\u0E44\u0E1F\u0E25\u0E38\u0E01 \u0E44\u0E21\u0E48\u0E21\u0E35\u0E43\u0E04\u0E23\u0E1C\u0E34\u0E14\u2026
+        \u0E41\u0E04\u0E48\u0E16\u0E36\u0E07\u0E40\u0E27\u0E25\u0E32"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 12
+      effect: 0
+      value: 
+      caption: "\u0E20\u0E1E\u0E2B\u0E25\u0E31\u0E1A\u0E15\u0E32"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 15
+      effect: 1
+      value: dawn
+      caption: "\u0E41\u0E2A\u0E07\u0E40\u0E0A\u0E49\u0E32\u0E25\u0E2D\u0E14\u0E21\u0E48\u0E32\u0E19\u0E40\u0E02\u0E49\u0E32\u0E21\u0E32"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 19.5
+      effect: 6
+      value: 
+      caption: "\u0E40\u0E17\u0E1B\u0E40\u0E25\u0E48\u0E19\u0E08\u0E19\u0E08\u0E1A"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  hints:
+  - "\u0E44\u0E21\u0E48\u0E15\u0E49\u0E2D\u0E07\u0E41\u0E01\u0E49\u0E17\u0E38\u0E01\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E01\u0E47\u0E44\u0E14\u0E49"
+  - "\u0E40\u0E23\u0E32\u0E0A\u0E48\u0E27\u0E22\u0E17\u0E38\u0E01\u0E04\u0E19\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49
+    \u0E16\u0E49\u0E32\u0E22\u0E31\u0E07\u0E2B\u0E19\u0E35\u0E15\u0E31\u0E27\u0E40\u0E2D\u0E07"
+  - "\u0E41\u0E04\u0E48\u0E1B\u0E25\u0E48\u0E2D\u0E22\u0E43\u0E2B\u0E49\u0E21\u0E31\u0E19\u0E40\u0E25\u0E48\u0E19"
+  carryOver: 
+  spliceCaption: 
+  isPeak: 0
+  isFinal: 1

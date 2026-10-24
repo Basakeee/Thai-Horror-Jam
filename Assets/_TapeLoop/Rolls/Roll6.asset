@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464c20d12be4982a017b7244b41b6ce, type: 3}
+  m_Name: Roll6
+  m_EditorClassIdentifier: Assembly-CSharp:TapeLoop:TapeRoll
+  number: 6
+  title: "\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19"
+  victim: "\u0E17\u0E38\u0E01\u0E04\u0E19"
+  intro: "03:00 \u2014 \u0E17\u0E38\u0E01\u0E04\u0E19\u0E2D\u0E22\u0E39\u0E48\u0E14\u0E49\u0E27\u0E22\u0E01\u0E31\u0E19\u0E43\u0E19\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19\n\u0E41\u0E17\u0E47\u0E1A\u0E40\u0E25\u0E47\u0E15\u0E04\u0E38\u0E21\u0E1A\u0E49\u0E32\u0E19\u0E22\u0E31\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E43\u0E19\u0E21\u0E37\u0E2D\u0E20\u0E1E"
+  allowReverse: 1
+  maxLength: 34
+  spliceCost: 2
+  startFlags: lights
+  startItems: tablet
+  segments:
+  - id: A
+    title: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E40\u0E2A\u0E35\u0E22\u0E1A\u0E0A\u0E32\u0E23\u0E4C\u0E08"
+    room: CAM 08
+    clock: 03:00:00
+    length: 8
+    happensOffscreen: 1
+    memory: 0
+    actors:
+    - actor: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      keys:
+      - time: 0
+        position: {x: -1, y: 1.2}
+      - time: 3
+        position: {x: 1.6, y: -1}
+      - time: 8
+        position: {x: 0, y: 1.2}
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: 0.6, y: 1.4}
+      - time: 8
+        position: {x: 0.6, y: 1.4}
+    events:
+    - time: 3
+      effect: 1
+      value: scooterCharging
+      caption: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E40\u0E2A\u0E35\u0E22\u0E1A\u0E0A\u0E32\u0E23\u0E4C\u0E08\u0E2A\u0E01\u0E39\u0E4A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E02\u0E49\u0E32\u0E07\u0E42\u0E0B\u0E1F\u0E32"
+      requireFlags: 
+      forbidFlags: powerCut
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 8
+      effect: 1
+      value: fireLiving
+      caption: "\u0E41\u0E1A\u0E15\u0E2A\u0E01\u0E39\u0E4A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E44\u0E1F\u0E25\u0E38\u0E01"
+      requireFlags: scooterCharging
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: B
+    title: "\u0E04\u0E23\u0E31\u0E27"
+    room: CAM 09
+    clock: 03:00:05
+    length: 7
+    happensOffscreen: 1
+    memory: 0
+    actors:
+    - actor: "\u0E1E\u0E48\u0E2D"
+      keys:
+      - time: 0
+        position: {x: -3, y: 0}
+      - time: 3
+        position: {x: 2, y: -1.8}
+      - time: 7
+        position: {x: 0, y: 1}
+    events:
+    - time: 3
+      effect: 1
+      value: stoveOn
+      caption: "\u0E1E\u0E48\u0E2D\u0E15\u0E49\u0E21\u0E19\u0E49\u0E33 \u2014 \u0E25\u0E37\u0E21\u0E1B\u0E34\u0E14\u0E40\u0E15\u0E32\u0E44\u0E1F\u0E1F\u0E49\u0E32"
+      requireFlags: 
+      forbidFlags: powerCut
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 7
+      effect: 1
+      value: fireKitchen
+      caption: "\u0E40\u0E15\u0E32\u0E23\u0E49\u0E2D\u0E19\u0E08\u0E31\u0E14 \u2014
+        \u0E44\u0E1F\u0E25\u0E38\u0E01\u0E43\u0E19\u0E04\u0E23\u0E31\u0E27"
+      requireFlags: stoveOn
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: C
+    title: "\u0E1B\u0E25\u0E31\u0E4A\u0E01\u0E1E\u0E48\u0E27\u0E07"
+    room: CAM 08
+    clock: 02:59:50
+    length: 6
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -3.5, y: -1}
+      - time: 3
+        position: {x: 0, y: -2}
+      - time: 6
+        position: {x: -0.6, y: 0.4}
+    events:
+    - time: 3
+      effect: 1
+      value: powerCut
+      caption: "\u0E15\u0E31\u0E14\u0E44\u0E1F\u0E1B\u0E25\u0E31\u0E4A\u0E01\u0E17\u0E31\u0E49\u0E07\u0E1A\u0E49\u0E32\u0E19\u0E1C\u0E48\u0E32\u0E19\u0E41\u0E17\u0E47\u0E1A\u0E40\u0E25\u0E47\u0E15"
+      requireFlags: 
+      forbidFlags: 
+      requireItems: tablet
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  - id: D
+    title: "\u0E1A\u0E19\u0E42\u0E0B\u0E1F\u0E32"
+    room: CAM 08
+    clock: 03:00:20
+    length: 6
+    happensOffscreen: 0
+    memory: 0
+    actors:
+    - actor: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      keys:
+      - time: 0
+        position: {x: 0, y: 1.2}
+      - time: 6
+        position: {x: 0, y: 1.2}
+    - actor: "\u0E41\u0E21\u0E48"
+      keys:
+      - time: 0
+        position: {x: 0.6, y: 1.4}
+      - time: 6
+        position: {x: 0.6, y: 1.4}
+    - actor: "\u0E1E\u0E48\u0E2D"
+      keys:
+      - time: 0
+        position: {x: -0.6, y: 1.4}
+      - time: 6
+        position: {x: -0.6, y: 1.4}
+    - actor: "\u0E20\u0E1E"
+      keys:
+      - time: 0
+        position: {x: -0.6, y: 0.4}
+      - time: 6
+        position: {x: -0.6, y: 0.4}
+    events:
+    - time: 2
+      effect: 5
+      value: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      caption: "\u0E44\u0E1F\u0E08\u0E32\u0E01\u0E2A\u0E01\u0E39\u0E4A\u0E15\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E25\u0E32\u0E21\u0E16\u0E36\u0E07\u0E42\u0E0B\u0E1F\u0E32"
+      requireFlags: fireLiving
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 2.2
+      effect: 5
+      value: "\u0E1E\u0E48\u0E2D"
+      caption: "\u0E44\u0E1F\u0E08\u0E32\u0E01\u0E04\u0E23\u0E31\u0E27\u0E25\u0E32\u0E21\u0E21\u0E32"
+      requireFlags: fireKitchen
+      forbidFlags: 
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+    - time: 4
+      effect: 6
+      value: 
+      caption: "\u0E17\u0E38\u0E01\u0E04\u0E19\u0E19\u0E31\u0E48\u0E07\u0E14\u0E49\u0E27\u0E22\u0E01\u0E31\u0E19\u0E1A\u0E19\u0E42\u0E0B\u0E1F\u0E32\u2026
+        \u0E17\u0E38\u0E01\u0E04\u0E19\u0E23\u0E2D\u0E14"
+      requireFlags: 
+      forbidFlags: fireLiving, fireKitchen
+      requireItems: 
+      forbidItems: 
+      reversible: 1
+      onlyWhenReversed: 0
+  hints:
+  - "\u0E44\u0E1F\u0E21\u0E32\u0E08\u0E32\u0E01\u0E2A\u0E2D\u0E07\u0E17\u0E35\u0E48"
+  - "\u0E41\u0E17\u0E47\u0E1A\u0E40\u0E25\u0E47\u0E15\u0E15\u0E31\u0E14\u0E44\u0E1F\u0E44\u0E14\u0E49\u0E17\u0E31\u0E49\u0E07\u0E1A\u0E49\u0E32\u0E19"
+  - "\u0E15\u0E31\u0E14\u0E44\u0E1F\u0E01\u0E48\u0E2D\u0E19\u0E17\u0E38\u0E01\u0E2D\u0E22\u0E48\u0E32\u0E07\u0E08\u0E30\u0E40\u0E23\u0E34\u0E48\u0E21"
+  carryOver: 
+  spliceCaption: 
+  isPeak: 1
+  isFinal: 0
