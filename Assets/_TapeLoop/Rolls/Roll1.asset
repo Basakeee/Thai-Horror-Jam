@@ -34,6 +34,7 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E20\u0E1E"
+      pose: 0
       keys:
       - time: 0
         position: {x: -2.5, y: 1}
@@ -52,6 +53,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
   - id: B
     title: "\u0E17\u0E32\u0E07\u0E40\u0E14\u0E34\u0E19\u0E0A\u0E31\u0E49\u0E19 2
       \u2192 \u0E1A\u0E31\u0E19\u0E44\u0E14"
@@ -62,6 +68,7 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E20\u0E1E"
+      pose: 0
       keys:
       - time: 0
         position: {x: -3.5, y: -1.5}
@@ -88,6 +95,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 7
       effect: 2
       value: lights
@@ -98,6 +110,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 10
       effect: 5
       value: "\u0E20\u0E1E"
@@ -109,6 +126,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 1
+      deathFlags: 
+      landRoom: CAM 08
+      landPosition: {x: 2.5, y: -1.9}
+      fallsOut: 0
   - id: C
     title: "\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E31\u0E48\u0E07\u0E40\u0E25\u0E48\u0E19"
     room: CAM 08
@@ -118,12 +140,14 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E40\u0E07\u0E32"
+      pose: 0
       keys:
       - time: 0
         position: {x: -1, y: 2.1}
       - time: 1.9
         position: {x: -1, y: 2.1}
     - actor: "\u0E20\u0E1E"
+      pose: 0
       keys:
       - time: 2
         position: {x: 3, y: -2}
@@ -140,6 +164,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 7
       effect: 6
       value: 
@@ -150,6 +179,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 7.5
       effect: 0
       value: 
@@ -161,6 +195,11 @@ MonoBehaviour:
       forbidItems: phone
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
   hints:
   - "\u0E44\u0E1F\u0E08\u0E30\u0E14\u0E31\u0E1A"
   - "\u0E40\u0E2D\u0E32\u0E44\u0E1F\u0E15\u0E34\u0E14\u0E15\u0E31\u0E27\u0E44\u0E1B\u0E14\u0E49\u0E27\u0E22"
@@ -168,5 +207,36 @@ MonoBehaviour:
   carryOver: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19\u0E22\u0E31\u0E07\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E1A\u0E19\u0E1A\u0E31\u0E19\u0E44\u0E14\u2026\n\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E15\u0E37\u0E48\u0E19\u0E21\u0E32\u0E43\u0E19\u0E04\u0E27\u0E32\u0E21\u0E21\u0E37\u0E14
     \u2014 \u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E02\u0E2D\u0E07\u0E40\u0E18\u0E2D\u0E2B\u0E32\u0E22\u0E44\u0E1B"
   spliceCaption: 
+  endShots:
+  - room: CAM 08
+    flags: 
+    items: phone
+    actors:
+    - actor: "\u0E20\u0E1E"
+      position: {x: -0.6, y: 1.3}
+      yaw: 0
+      pose: 1
+    caption: "END \u2014 \u0E20\u0E1E\u0E25\u0E07\u0E21\u0E32\u0E16\u0E36\u0E07\u0E40\u0E04\u0E23\u0E37\u0E48\u0E2D\u0E07\u0E40\u0E25\u0E48\u0E19\u0E40\u0E17\u0E1B\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E44\u0E1F\u0E09\u0E32\u0E22\n\u0E40\u0E17\u0E1B\u0E21\u0E49\u0E27\u0E19\u0E17\u0E35\u0E48\u0E2A\u0E2D\u0E07\u0E14\u0E35\u0E14\u0E2D\u0E2D\u0E01\u0E21\u0E32\u0E40\u0E2D\u0E07"
+    seconds: 4
+    glitch: 0
+  - room: CAM 04
+    flags: vacuumStairs
+    items: 
+    actors: []
+    caption: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19\u0E22\u0E31\u0E07\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E1A\u0E19\u0E02\u0E31\u0E49\u0E19\u0E1A\u0E31\u0E19\u0E44\u0E14\u2026"
+    seconds: 3.5
+    glitch: 1
+  - room: CAM 03
+    flags: 
+    items: 
+    actors:
+    - actor: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C"
+      position: {x: -2.3, y: 1}
+      yaw: 90
+      pose: 2
+    caption: "\u0E21\u0E34\u0E49\u0E19\u0E17\u0E4C\u0E15\u0E37\u0E48\u0E19\u0E02\u0E36\u0E49\u0E19\u0E21\u0E32\u0E43\u0E19\u0E04\u0E27\u0E32\u0E21\u0E21\u0E37\u0E14
+      \u2014 \u0E42\u0E17\u0E23\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E02\u0E2D\u0E07\u0E40\u0E18\u0E2D\u0E2B\u0E32\u0E22\u0E44\u0E1B"
+    seconds: 4
+    glitch: 1
   isPeak: 0
   isFinal: 0

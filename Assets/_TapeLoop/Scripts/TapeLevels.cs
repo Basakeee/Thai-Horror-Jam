@@ -10,7 +10,61 @@ namespace TapeLoop
     {
         public const string Phop = "ภพ", Mint = "มิ้นท์", Mom = "แม่", Dad = "พ่อ", Vacuum = "หุ่นยนต์ดูดฝุ่น", Shadow = "เงา";
 
-        public static List<TapeRoll> CreateAll() => new() { Roll1(), Roll2(), Roll3(), Roll4(), Roll5(), Roll6(), Roll7() };
+        public static List<TapeRoll> CreateAll()
+        {
+            var all = new List<TapeRoll> { Roll1(), Roll2(), Roll3(), Roll4(), Roll5(), Roll6(), Roll7() };
+            AddEndShots(all);
+            return all;
+        }
+
+        // ---------------------------------------------------------------- ฉากจบเมื่อผ่านม้วน
+        // ช็อตแรก = คนที่รอด · ช็อตต่อไป = สิ่งที่ผู้เล่นทิ้งไว้ ซึ่งจะเป็นความตายของม้วนหน้า (ผู้เล่นต้อง "เห็น" ว่าตัวเองส่งต่อ)
+        public static void AddEndShots(List<TapeRoll> rolls)
+        {
+            const FigureAnimator.Pose Hold = FigureAnimator.Pose.Hold, Sit = FigureAnimator.Pose.Sit, Auto = FigureAnimator.Pose.Auto;
+            rolls[0].endShots = new()
+            {
+                Shot("CAM 08", "", "phone", "END — ภพลงมาถึงเครื่องเล่นเทปพร้อมไฟฉาย\nเทปม้วนที่สองดีดออกมาเอง", 4f, false,
+                    new ShotActor(Phop, -0.6f, 1.3f, 0f, Hold)),
+                Shot("CAM 04", "vacuumStairs", "", "หุ่นยนต์ดูดฝุ่นยังค้างอยู่บนขั้นบันได…", 3.5f, true),
+                Shot("CAM 03", "", "", "มิ้นท์ตื่นขึ้นมาในความมืด — โทรศัพท์ของเธอหายไป", 4f, true,
+                    new ShotActor(Mint, -2.3f, 1f, 90f, Sit)),
+            };
+            rolls[1].endShots = new()
+            {
+                Shot("CAM 03", "lights, smoke", "extinguisher", "END — ไฟดับ มิ้นท์รอด", 4f, false,
+                    new ShotActor(Phop, 0.5f, -0.4f, 120f, Hold), new ShotActor(Mint, -2.2f, 0.6f, 140f, Auto)),
+                Shot("CAM 04", "lights", "phone", "ภพยื่นโทรศัพท์ของมิ้นท์ให้แม่ — \"แม่เก็บไว้ทีนะ\"", 4f, true,
+                    new ShotActor(Phop, -1.4f, 0f, 90f, Hold), new ShotActor(Mom, -0.3f, 0f, 270f, Auto)),
+                Shot("CAM 05", "lights, phoneOnShelf", "", "แม่ตัวเปื้อนเขม่า ไปอาบน้ำ… เสียบชาร์จโทรศัพท์ไว้บนชั้นเหนืออ่าง", 4.5f, true,
+                    new ShotActor(Mom, 1.5f, 0.9f, 50f, Auto)),
+            };
+            rolls[2].endShots = new()
+            {
+                Shot("CAM 05", "lights, phoneOnShelf", "", "END — แม่อาบน้ำเสร็จ ปลอดภัย", 3.5f, false,
+                    new ShotActor(Mom, -2.2f, -1.6f, 200f, Auto)),
+                Shot("CAM 06b", "lights", "", "หุ่นยนต์ที่ถูกย้อน ถอยเลยแท่นชาร์จ…\nไปค้างอยู่หน้าระเบียงกระจก ไฟสถานะกะพริบแดง", 4.5f, true,
+                    new ShotActor(Vacuum, 1.5f, 0.2f, 90f)),
+            };
+            rolls[3].endShots = new()
+            {
+                Shot("CAM 06", "lights, balconyLocked", "tablet", "END — ประตูระเบียงล็อก พ่อกลับมานั่ง", 3.5f, false,
+                    new ShotActor(Dad, -2f, 0.5f, 90f, Sit), new ShotActor(Phop, 0.2f, 1f, 270f, Hold)),
+                Shot("CAM 02", "lights, shelfTilted", "", "ห้องเก็บของ — กองกล่องบนชั้นยังเอียงอยู่\nตั้งแต่ภพดึงแท็บเล็ตออกมา", 4.5f, true),
+            };
+            rolls[4].endShots = new()
+            {
+                Shot("CAM 02", "lights, shelfSecured, shelfTilted", "", "END — ได้กล่องพัสดุ ชั้นที่ผูกไว้ไม่ขยับ", 3.5f, false,
+                    new ShotActor(Phop, 1.4f, 1.3f, 0f, Auto)),
+                Shot("MEMORY", "lights", "", "ชิ้นความทรงจำในกองข้างเครื่อง… สั่น แล้วเล่นขึ้นมาเองแวบหนึ่ง", 3f, true,
+                    new ShotActor(Mint, 0f, 0.6f, 0f), new ShotActor(Mom, -1.2f, 1f, 30f), new ShotActor(Dad, 1.2f, 1f, 330f), new ShotActor(Phop, 0.8f, -1f, 0f)),
+                Shot("CAM 08", "lights", "", "ทุกคนในบ้านตื่น เดินลงมารวมกันที่ห้องนั่งเล่น", 4f, true,
+                    new ShotActor(Mint, -0.5f, 0.2f, 0f), new ShotActor(Mom, 0.4f, 0.5f, 340f), new ShotActor(Dad, 1.4f, -0.4f, 300f), new ShotActor(Phop, -1.8f, -1.8f, 30f)),
+            };
+        }
+
+        static EndShot Shot(string room, string flags, string items, string caption, float seconds, bool glitch, params ShotActor[] actors)
+            => new() { room = room, flags = flags, items = items, caption = caption, seconds = seconds, glitch = glitch, actors = new List<ShotActor>(actors) };
 
         // ---------------------------------------------------------------- ม้วน 1
         static TapeRoll Roll1()
@@ -27,7 +81,10 @@ namespace TapeLoop
             Track(b, Phop, (0, -3.5f, -1.5f), (2, -2f, 1.6f), (3, -2f, 1.6f), (6, 0.5f, 0f), (9, 2.4f, 0f), (10, 2.9f, 0f), (11, 3.5f, 0.6f));
             Ev(b, 3, EffectType.GiveItem, "phone", "หยิบโทรศัพท์ของมิ้นท์มาใช้เป็นไฟฉาย");
             Ev(b, 7, EffectType.ClearFlag, "lights", "ไฟทั้งบ้านดับ");
-            Ev(b, 10, EffectType.Kill, Phop, "ไฟดับ เหยียบหุ่นยนต์ดูดฝุ่นบนขั้นบันได ตกช่องบันได");
+            var fall = Ev(b, 10, EffectType.Kill, Phop, "ไฟดับ เหยียบหุ่นยนต์ดูดฝุ่นบนขั้นบันได ตกช่องบันได");
+            fall.deathStyle = DeathStyle.Fall;
+            fall.landRoom = "CAM 08";               // ร่วงลงช่องบันได → ศพที่ตีนบันไดชั้นล่าง
+            fall.landPosition = new Vector2(2.5f, -1.9f);
 
             var c = Seg(r, "C", "ห้องนั่งเล่น", "CAM 08", "23:41:00", 8);
             Track(c, Shadow, (0, -1f, 2.1f), (1.9f, -1f, 2.1f));   // clue: เงานั่งหน้าเครื่องเล่นเทป
@@ -112,7 +169,10 @@ namespace TapeLoop
             var c = Seg(r, "C", "ในอ่าง", "CAM 05", "01:00:20", 8);
             Track(c, Mom, (0, 0f, 0f), (5, 0f, 0f), (8, -2.5f, -2.2f));
             Ev(c, 2, EffectType.Say, "", "ชั้นวางสั่น…").requireFlags = "doorHit";
-            Ev(c, 3, EffectType.Kill, Mom, "โทรศัพท์กับสายชาร์จตกลงอ่าง — ไฟดูด").requireFlags = "doorHit, phoneOnShelf";
+            var shock = Ev(c, 3, EffectType.Kill, Mom, "โทรศัพท์กับสายชาร์จตกลงอ่าง — ไฟดูด");
+            shock.requireFlags = "doorHit, phoneOnShelf";
+            shock.deathStyle = DeathStyle.Electric;
+            shock.deathFlags = "-phoneOnShelf, phoneInTub";
             Ev(c, 7.5f, EffectType.Win, "", "แม่อาบน้ำเสร็จ เดินออกจากห้องน้ำ").forbidFlags = "doorHit";
 
             r.hints = new[] { "มันไม่ได้เริ่มในห้องน้ำ", "ตัดไปมันก็ยังชน", "ให้มันถอยกลับ" };
@@ -152,7 +212,11 @@ namespace TapeLoop
             Track(d, Dad, (0, -2.5f, 0f), (3, 1.2f, 0f), (6, 1.2f, 0f));
             Track(d, Vacuum, (0, -1f, -2f), (2, 1.6f, -0.5f), (6, 1.6f, -0.5f));
             Ev(d, 2, EffectType.SetFlag, "crack", "หุ่นยนต์ยังเปิดอยู่ — ชนกระจกซ้ำ").requireFlags = "vacuumOn";
-            Ev(d, 4, EffectType.Kill, Dad, "พิงกระจกที่ร้าว — กระจกแตก ตกลงไปสองชั้น").requireFlags = "dadOnBalcony, crack";
+            var glass = Ev(d, 4, EffectType.Kill, Dad, "พิงกระจกที่ร้าว — กระจกแตก ตกลงไปสองชั้น");
+            glass.requireFlags = "dadOnBalcony, crack";
+            glass.deathStyle = DeathStyle.Glass;
+            glass.deathFlags = "glassBroken";
+            glass.fallsOut = true;
 
             var e = Seg(r, "E", "นั่งเล่นชั้น 2", "CAM 06", "01:38:00", 5);
             Track(e, Phop, (0, -3.5f, 1f), (3, 0f, 1f), (5, 2f, 1f));
@@ -191,7 +255,10 @@ namespace TapeLoop
 
             var c = Seg(r, "C", "ดึงกล่อง", "CAM 02", "02:31:00", 9);
             Track(c, Phop, (0, 1f, 1.5f), (4, 2.2f, 2f), (9, 2.2f, 2f));
-            Ev(c, 6, EffectType.Kill, Phop, "ดึงกล่องจากชั้นล่าง — ชั้นทั้งตู้ล้มทับ").forbidFlags = "shelfSecured";
+            var crush = Ev(c, 6, EffectType.Kill, Phop, "ดึงกล่องจากชั้นล่าง — ชั้นทั้งตู้ล้มทับ");
+            crush.forbidFlags = "shelfSecured";
+            crush.deathStyle = DeathStyle.Crush;
+            crush.deathFlags = "shelfFallen";
             Ev(c, 7, EffectType.Win, "", "ได้กล่องพัสดุ — ชั้นที่ผูกไว้ไม่ขยับ").requireFlags = "shelfSecured";
 
             var d = Seg(r, "D", "ห้องนั่งเล่น", "CAM 08", "02:20:00", 7);

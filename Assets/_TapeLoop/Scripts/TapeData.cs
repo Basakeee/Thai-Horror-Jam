@@ -61,6 +61,13 @@ namespace TapeLoop
         public bool onlyWhenReversed;
         [Tooltip("Kill: ท่าศพ + ร่องรอย (Auto = เดาจากคำบรรยาย)")]
         public DeathStyle deathStyle;
+        [Tooltip("Kill: flag ที่เปลี่ยนตอนตาย ให้ห้องตรงกับคำบรรยาย (เช่น shelfFallen, -phoneOnShelf) — ขึ้นต้น - = ล้าง")]
+        public string deathFlags;
+        [Tooltip("Kill: ตกลงไปห้องอื่น → กล้องตัดไปห้องนี้ เห็นศพที่จุดตก")]
+        public string landRoom;
+        public Vector2 landPosition;
+        [Tooltip("Kill: ร่วงหลุดเฟรม ไม่เห็นศพ (เหลือแต่ร่องรอย)")]
+        public bool fallsOut;
 
         public TapeEvent() { }
 

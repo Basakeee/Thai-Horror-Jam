@@ -32,6 +32,7 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E41\u0E21\u0E48"
+      pose: 0
       keys:
       - time: 0
         position: {x: -2.5, y: -2.2}
@@ -52,6 +53,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 6
       effect: 0
       value: 
@@ -62,6 +68,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
   - id: B
     title: "\u0E17\u0E32\u0E07\u0E40\u0E14\u0E34\u0E19\u0E0A\u0E31\u0E49\u0E19 2"
     room: CAM 04
@@ -71,6 +82,7 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19"
+      pose: 0
       keys:
       - time: 0
         position: {x: -3.2, y: -1.6}
@@ -90,6 +102,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 3
       effect: 0
       value: 
@@ -102,6 +119,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 1
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
   - id: C
     title: "\u0E43\u0E19\u0E2D\u0E48\u0E32\u0E07"
     room: CAM 05
@@ -111,6 +133,7 @@ MonoBehaviour:
     memory: 0
     actors:
     - actor: "\u0E41\u0E21\u0E48"
+      pose: 0
       keys:
       - time: 0
         position: {x: 0, y: 0}
@@ -129,6 +152,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 3
       effect: 5
       value: "\u0E41\u0E21\u0E48"
@@ -140,6 +168,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 3
+      deathFlags: -phoneOnShelf, phoneInTub
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
     - time: 7.5
       effect: 6
       value: 
@@ -151,6 +184,11 @@ MonoBehaviour:
       forbidItems: 
       reversible: 1
       onlyWhenReversed: 0
+      deathStyle: 0
+      deathFlags: 
+      landRoom: 
+      landPosition: {x: 0, y: 0}
+      fallsOut: 0
   hints:
   - "\u0E21\u0E31\u0E19\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E40\u0E23\u0E34\u0E48\u0E21\u0E43\u0E19\u0E2B\u0E49\u0E2D\u0E07\u0E19\u0E49\u0E33"
   - "\u0E15\u0E31\u0E14\u0E44\u0E1B\u0E21\u0E31\u0E19\u0E01\u0E47\u0E22\u0E31\u0E07\u0E0A\u0E19"
@@ -159,5 +197,31 @@ MonoBehaviour:
     \u0E16\u0E2D\u0E22\u0E40\u0E25\u0E22\u0E41\u0E17\u0E48\u0E19\u0E0A\u0E32\u0E23\u0E4C\u0E08\u2026\n\u0E44\u0E1B\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E1B\u0E23\u0E30\u0E15\u0E39\u0E23\u0E30\u0E40\u0E1A\u0E35\u0E22\u0E07\u0E01\u0E23\u0E30\u0E08\u0E01
     \u0E44\u0E1F\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E01\u0E30\u0E1E\u0E23\u0E34\u0E1A\u0E41\u0E14\u0E07"
   spliceCaption: 
+  endShots:
+  - room: CAM 05
+    flags: lights, phoneOnShelf
+    items: 
+    actors:
+    - actor: "\u0E41\u0E21\u0E48"
+      position: {x: -2.2, y: -1.6}
+      yaw: 200
+      pose: 0
+    caption: "END \u2014 \u0E41\u0E21\u0E48\u0E2D\u0E32\u0E1A\u0E19\u0E49\u0E33\u0E40\u0E2A\u0E23\u0E47\u0E08
+      \u0E1B\u0E25\u0E2D\u0E14\u0E20\u0E31\u0E22"
+    seconds: 3.5
+    glitch: 0
+  - room: CAM 06b
+    flags: lights
+    items: 
+    actors:
+    - actor: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E14\u0E39\u0E14\u0E1D\u0E38\u0E48\u0E19"
+      position: {x: 1.5, y: 0.2}
+      yaw: 90
+      pose: 0
+    caption: "\u0E2B\u0E38\u0E48\u0E19\u0E22\u0E19\u0E15\u0E4C\u0E17\u0E35\u0E48\u0E16\u0E39\u0E01\u0E22\u0E49\u0E2D\u0E19
+      \u0E16\u0E2D\u0E22\u0E40\u0E25\u0E22\u0E41\u0E17\u0E48\u0E19\u0E0A\u0E32\u0E23\u0E4C\u0E08\u2026\n\u0E44\u0E1B\u0E04\u0E49\u0E32\u0E07\u0E2D\u0E22\u0E39\u0E48\u0E2B\u0E19\u0E49\u0E32\u0E23\u0E30\u0E40\u0E1A\u0E35\u0E22\u0E07\u0E01\u0E23\u0E30\u0E08\u0E01
+      \u0E44\u0E1F\u0E2A\u0E16\u0E32\u0E19\u0E30\u0E01\u0E30\u0E1E\u0E23\u0E34\u0E1A\u0E41\u0E14\u0E07"
+    seconds: 4.5
+    glitch: 1
   isPeak: 0
   isFinal: 0

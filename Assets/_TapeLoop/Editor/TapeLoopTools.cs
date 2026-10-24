@@ -81,6 +81,13 @@ namespace TapeLoop.EditorTools
                 var existing = AssetDatabase.LoadAssetAtPath<TapeRoll>(path);
                 if (existing != null && !overwrite)
                 {
+                    // ฟีลด์ที่เพิ่มทีหลัง: เติมเฉพาะที่ว่าง ไม่ทับสิ่งที่แก้ใน Inspector
+                    if ((existing.endShots == null || existing.endShots.Count == 0) && fresh.endShots.Count > 0)
+                    {
+                        existing.endShots = fresh.endShots;
+                        EditorUtility.SetDirty(existing);
+                    }
+                    MergeDeathFields(existing, fresh);
                     result.Add(existing);
                     continue;
                 }
@@ -90,6 +97,28 @@ namespace TapeLoop.EditorTools
             }
             AssetDatabase.SaveAssets();
             return result;
+        }
+
+        // Kill event ใน asset เดิม: เติม deathStyle/deathFlags/landRoom/fallsOut จากค่าตั้งต้น เฉพาะที่ยังว่าง
+        static void MergeDeathFields(TapeRoll existing, TapeRoll fresh)
+        {
+            bool changed = false;
+            foreach (var freshSeg in fresh.segments)
+            {
+                var seg = existing.Segment(freshSeg.id);
+                if (seg == null) continue;
+                foreach (var fe in freshSeg.events)
+                {
+                    if (fe.effect != EffectType.Kill) continue;
+                    var e = seg.events.Find(x => x.effect == EffectType.Kill && x.value == fe.value && Mathf.Abs(x.time - fe.time) < 0.01f);
+                    if (e == null) continue;
+                    if (e.deathStyle == DeathStyle.Auto && fe.deathStyle != DeathStyle.Auto) { e.deathStyle = fe.deathStyle; changed = true; }
+                    if (string.IsNullOrEmpty(e.deathFlags) && !string.IsNullOrEmpty(fe.deathFlags)) { e.deathFlags = fe.deathFlags; changed = true; }
+                    if (string.IsNullOrEmpty(e.landRoom) && !string.IsNullOrEmpty(fe.landRoom)) { e.landRoom = fe.landRoom; e.landPosition = fe.landPosition; changed = true; }
+                    if (!e.fallsOut && fe.fallsOut) { e.fallsOut = true; changed = true; }
+                }
+            }
+            if (changed) EditorUtility.SetDirty(existing);
         }
 
         // material ที่สร้างจากโค้ดไม่ถูกเซฟลง scene → เก็บเป็น .mat
@@ -579,7 +608,17 @@ namespace TapeLoop.EditorTools
             yield return 4f;
             Shot(game, shot + "_playing");
             yield return 0.25f;
-            yield return (Func<bool>)(() => game.DebugMode == "Message");
+            yield return (Func<bool>)(() => game.DebugMode == "Message" || game.DebugMode == "Sequence");
+            if (game.DebugMode == "Sequence")
+            {
+                yield return 1.2f;
+                Shot(game, shot + "_end1");
+                yield return 0.25f;
+                yield return 3.6f;
+                Shot(game, shot + "_end2");
+                yield return 0.25f;
+                yield return (Func<bool>)(() => game.DebugMode == "Message");
+            }
             Shot(game, shot + "_result");
             yield return 0.25f;
             yield return 0.3f;

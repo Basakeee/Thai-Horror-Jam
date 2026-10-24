@@ -33,10 +33,51 @@ namespace TapeLoop
         [Tooltip("ข้อความแทรกครั้งแรกที่เทปผ่านรอยต่อ (clue ปริศนาเทป)")]
         public string spliceCaption;
 
+        [Header("ฉากจบเมื่อผ่านม้วน (ภาพจากกล้องหลายห้อง ต่อกัน)")]
+        [Tooltip("ช็อตแรก = คนที่รอด · ช็อตต่อ ๆ ไป = สิ่งที่ทิ้งไว้ ซึ่งจะกลายเป็นความตายม้วนหน้า · ว่าง = ขึ้นแค่ข้อความ carryOver")]
+        public List<EndShot> endShots = new();
+
         [Header("ม้วนพิเศษ")]
         public bool isPeak;
         public bool isFinal;
 
         public TapeSegment Segment(string id) => segments.Find(s => s.id == id);
+    }
+
+    [System.Serializable]
+    public class EndShot
+    {
+        [Tooltip("ห้อง (ชื่อใน House/Rooms)")]
+        public string room = "CAM 08";
+        [Tooltip("flag ของบ้านในช็อตนี้ (คั่นด้วย , ) — ใส่ lights ถ้าไฟติด")]
+        public string flags = "lights";
+        [Tooltip("ของในมือภพ (คั่นด้วย , )")]
+        public string items;
+        public List<ShotActor> actors = new();
+        [TextArea] public string caption;
+        public float seconds = 3.5f;
+        [Tooltip("ภาพกระตุกตอนตัดเข้าช็อตนี้")]
+        public bool glitch;
+    }
+
+    [System.Serializable]
+    public class ShotActor
+    {
+        public string actor;
+        [Tooltip("(x, z) เมตรจากกลางห้อง")]
+        public Vector2 position;
+        [Tooltip("หันหน้า (องศา) — 0 = ขึ้นบนจอ, 180 = หันเข้ากล้อง")]
+        public float yaw;
+        public FigureAnimator.Pose pose;
+
+        public ShotActor() { }
+
+        public ShotActor(string actor, float x, float z, float yaw, FigureAnimator.Pose pose = FigureAnimator.Pose.Auto)
+        {
+            this.actor = actor;
+            position = new Vector2(x, z);
+            this.yaw = yaw;
+            this.pose = pose;
+        }
     }
 }

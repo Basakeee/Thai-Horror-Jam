@@ -37,14 +37,16 @@ namespace TapeLoop
             Box(r01, "Laptop", new Vector3(2.6f, 0.82f, 2.3f), new Vector3(0.5f, 0.03f, 0.35f), Dark);
 
             var r02 = Room("CAM 02", "ห้องเก็บของ");
-            Box(r02, "Shelf", new Vector3(2.2f, 1.1f, 2.5f), new Vector3(2.6f, 2.2f, 0.6f), Wood);
+            var shelfUnit = new GameObject("!flag:shelfFallen").transform;
+            shelfUnit.SetParent(r02, false);
+            Box(shelfUnit, "Shelf", new Vector3(2.2f, 1.1f, 2.5f), new Vector3(2.6f, 2.2f, 0.6f), Wood);
             for (int b = 0; b < 3; b++)
             {
-                var box = Box(r02, "flag:shelfTilted", new Vector3(1.4f + b * 0.8f, 2.4f, 2.5f), new Vector3(0.6f, 0.5f, 0.5f), new Color(0.6f, 0.5f, 0.35f));
+                var box = Box(shelfUnit, "flag:shelfTilted", new Vector3(1.4f + b * 0.8f, 2.4f, 2.5f), new Vector3(0.6f, 0.5f, 0.5f), new Color(0.6f, 0.5f, 0.35f));
                 box.transform.localRotation = Quaternion.Euler(0f, 0f, 12f + b * 5f);
             }
-            Box(r02, "flag:shelfSecured", new Vector3(2.2f, 1.6f, 2.15f), new Vector3(2.7f, 0.08f, 0.05f), new Color(0.95f, 0.8f, 0.1f));
-            Shape(PrimitiveType.Cylinder, r02, "!item:extinguisher", new Vector3(0f, 0.35f, 2.1f), new Vector3(0.3f, 0.35f, 0.3f), new Color(0.78f, 0.64f, 0.2f));
+            Box(shelfUnit, "flag:shelfSecured", new Vector3(2.2f, 1.6f, 2.15f), new Vector3(2.7f, 0.08f, 0.05f), new Color(0.95f, 0.8f, 0.1f));
+            Extinguisher(r02, "!item:extinguisher", new Vector3(0f, 0f, 2.6f), 1f, wallMounted: true);
             Box(r02, "!item:tablet", new Vector3(1.2f, 1.25f, 2.3f), new Vector3(0.4f, 0.03f, 0.3f), Dark);
             Box(r02, "Boxes", new Vector3(-2.6f, 0.4f, -2f), new Vector3(1.4f, 0.8f, 1f), new Color(0.6f, 0.5f, 0.35f));
 
@@ -71,10 +73,15 @@ namespace TapeLoop
 
             var r05 = Room("CAM 05", "ห้องน้ำ");
             Box(r05, "Tub", new Vector3(0f, 0.3f, 0f), new Vector3(1.6f, 0.6f, 2.8f), White);
-            Box(r05, "Water", new Vector3(0f, 0.55f, 0f), new Vector3(1.4f, 0.05f, 2.6f), new Color(0.5f, 0.65f, 0.8f), false);
+            Box(r05, "Water", new Vector3(0f, 0.62f, 0f), new Vector3(1.4f, 0.03f, 2.6f), new Color(0.22f, 0.28f, 0.34f), false);
             Box(r05, "Shelf", new Vector3(2.2f, 1.2f, 1.6f), new Vector3(1f, 0.08f, 0.4f), White);
             Box(r05, "flag:phoneOnShelf", new Vector3(2.2f, 1.28f, 1.6f), new Vector3(0.15f, 0.03f, 0.3f), Dark);
             Box(r05, "Cable", new Vector3(1.6f, 0.9f, 1.4f), new Vector3(0.03f, 0.6f, 0.03f), Dark, false);
+            var inTub = new GameObject("flag:phoneInTub").transform;
+            inTub.SetParent(r05, false);
+            Box(inTub, "Phone In Water", new Vector3(0.3f, 0.645f, 0.6f), new Vector3(0.15f, 0.03f, 0.3f), Dark);
+            Box(inTub, "Cable Into Tub", new Vector3(1.1f, 0.9f, 1.0f), new Vector3(1.4f, 0.03f, 0.03f), Dark).transform.localRotation = Quaternion.Euler(0f, 30f, -25f);
+            Glow(inTub, "Sparks In Water", new Vector3(0.3f, 0.67f, 0.6f), new Vector3(0.25f, 0.05f, 0.25f), new Color(0.7f, 0.9f, 1f), 3f, 1.2f);
             Box(r05, "Door", new Vector3(-2.5f, 1f, -2.95f), new Vector3(1f, 2f, 0.1f), new Color(0.6f, 0.75f, 0.9f));
 
             var r06 = Room("CAM 06", "นั่งเล่นชั้น 2");
@@ -83,10 +90,12 @@ namespace TapeLoop
             Glow(r06, "flag:balconyLocked", new Vector3(3.8f, 1.2f, 0.9f), new Vector3(0.05f, 0.12f, 0.12f), new Color(1f, 0.1f, 0.1f), 4f, 2f);
 
             var r06b = Room("CAM 06b", "ระเบียงกระจก");
+            var glassRail = new GameObject("!flag:glassBroken").transform;
+            glassRail.SetParent(r06b, false);
             for (int g = 0; g < 3; g++)
             {
-                Box(r06b, "!flag:crack", new Vector3(2.2f, 0.6f, -1.6f + g * 1.6f), new Vector3(0.05f, 1.2f, 1.5f), new Color(0.75f, 0.85f, 0.95f));
-                Box(r06b, "flag:crack", new Vector3(2.2f, 0.6f, -1.6f + g * 1.6f), new Vector3(0.06f, 1.2f, 1.5f), White);
+                Box(glassRail, "!flag:crack", new Vector3(2.2f, 0.6f, -1.6f + g * 1.6f), new Vector3(0.05f, 1.2f, 1.5f), new Color(0.75f, 0.85f, 0.95f));
+                Box(glassRail, "flag:crack", new Vector3(2.2f, 0.6f, -1.6f + g * 1.6f), new Vector3(0.06f, 1.2f, 1.5f), White);
             }
             Box(r06b, "Drop", new Vector3(3.4f, 0.01f, 0f), new Vector3(2f, 0.02f, 6f), Dark, false);
             Shape(PrimitiveType.Cylinder, r06b, "Plant", new Vector3(-2.5f, 0.4f, 2f), new Vector3(0.5f, 0.4f, 0.5f), new Color(0.3f, 0.5f, 0.3f));
@@ -98,6 +107,7 @@ namespace TapeLoop
             Box(r08, "VCR", new Vector3(-1f, 0.55f, 2.6f), new Vector3(0.7f, 0.12f, 0.4f), new Color(0.2f, 0.2f, 0.2f));
             Box(r08, "Sofa", new Vector3(0f, 0.35f, 1.4f), new Vector3(2.8f, 0.7f, 0.9f), new Color(0.5f, 0.5f, 0.55f));
             Box(r08, "Parcel", new Vector3(-1.4f, 0.2f, -2.5f), new Vector3(0.6f, 0.4f, 0.5f), new Color(0.65f, 0.5f, 0.3f));
+            Strap(r08, "!item:strap", new Vector3(-0.85f, 0.03f, -2.5f), 1f);
             for (int s = 0; s < 4; s++)
                 Box(r08, "Step", new Vector3(3.2f, 0.05f + s * 0.2f, -2.5f + s * 0.5f), new Vector3(1f, 0.1f, 0.45f), Wood);
             Box(r08, "flag:scooterCharging", new Vector3(1.6f, 0.3f, -1f), new Vector3(0.3f, 0.6f, 1.1f), new Color(0.2f, 0.6f, 0.9f));
@@ -107,7 +117,7 @@ namespace TapeLoop
             var r09 = Room("CAM 09", "ครัว");
             Box(r09, "Counter", new Vector3(0f, 0.45f, 2.5f), new Vector3(7f, 0.9f, 0.8f), White);
             Box(r09, "Drawer", new Vector3(1f, 0.6f, 2.1f), new Vector3(0.8f, 0.3f, 0.05f), Wood);
-            Box(r09, "!item:key", new Vector3(1f, 0.92f, 2.4f), new Vector3(0.15f, 0.03f, 0.08f), new Color(0.9f, 0.8f, 0.3f));
+            Key(r09, "!item:key", new Vector3(1f, 0.92f, 2.35f), 1f);
             Box(r09, "Stove", new Vector3(2f, 0.45f, -2.4f), new Vector3(1.2f, 0.9f, 0.8f), Dark);
             Glow(r09, "flag:stoveOn", new Vector3(2f, 0.92f, -2.4f), new Vector3(0.6f, 0.02f, 0.5f), new Color(1f, 0.2f, 0.1f), 3f, 3f);
             Glow(r09, "flag:fireKitchen", new Vector3(2f, 1.3f, -2.2f), new Vector3(1.4f, 1.2f, 1.2f), new Color(1f, 0.5f, 0.1f), 3f, 9f);
@@ -182,12 +192,63 @@ namespace TapeLoop
             torch.color = new Color(0.95f, 0.97f, 1f);
             torch.shadows = LightShadows.Soft;
 
-            Greybox.Shape(PrimitiveType.Cylinder, arm, "Held:extinguisher", new Vector3(0f, -0.82f, 0.1f), new Vector3(0.14f, 0.24f, 0.14f), new Color(0.78f, 0.64f, 0.2f));
+            var held = Extinguisher(arm, "Held:extinguisher", new Vector3(0f, -1.05f, 0.12f), 0.75f, wallMounted: false);
             Greybox.Box(arm, "Held:tablet", new Vector3(0f, -0.74f, 0.08f), new Vector3(0.22f, 0.3f, 0.015f), Dark, false);
-            Greybox.Box(arm, "Held:key", new Vector3(0f, -0.72f, 0.05f), new Vector3(0.03f, 0.08f, 0.01f), new Color(0.9f, 0.8f, 0.3f), false);
-            Greybox.Shape(PrimitiveType.Cylinder, arm, "Held:strap", new Vector3(0f, -0.72f, 0.07f), new Vector3(0.14f, 0.03f, 0.14f), new Color(0.95f, 0.8f, 0.1f));
+            Key(arm, "Held:key", new Vector3(0f, -0.74f, 0.06f), 0.7f).transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            Strap(arm, "Held:strap", new Vector3(0f, -0.74f, 0.08f), 0.6f).transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
             foreach (Transform c in arm)
                 if (c.name.StartsWith("Held:")) c.gameObject.SetActive(false);
+        }
+
+        // ถังดับเพลิง: ตัวถัง + แถบฉลาก + วาล์ว + ด้ามบีบ + สายฉีด (+ ขายึดผนัง) — รูปทรงต้องอ่านออกจากกล้องเพดาน
+        static GameObject Extinguisher(Transform parent, string name, Vector3 position, float scale, bool wallMounted)
+        {
+            var root = new GameObject(name).transform;
+            root.SetParent(parent, false);
+            root.localPosition = position;
+            root.localScale = Vector3.one * scale;
+            var body = new Color(0.78f, 0.64f, 0.2f);
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Tank", new Vector3(0f, 0.32f, 0f), new Vector3(0.26f, 0.3f, 0.26f), body);
+            Greybox.Shape(PrimitiveType.Sphere, root, "Tank Top", new Vector3(0f, 0.62f, 0f), new Vector3(0.26f, 0.12f, 0.26f), body);
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Label", new Vector3(0f, 0.32f, 0f), new Vector3(0.265f, 0.07f, 0.265f), new Color(0.92f, 0.92f, 0.9f));
+            Greybox.Box(root, "Valve", new Vector3(0f, 0.72f, 0f), new Vector3(0.07f, 0.1f, 0.07f), Dark, false);
+            var lever = Greybox.Box(root, "Lever", new Vector3(0f, 0.8f, -0.06f), new Vector3(0.05f, 0.03f, 0.2f), Dark, false);
+            lever.transform.localRotation = Quaternion.Euler(-15f, 0f, 0f);
+            var hose = Greybox.Shape(PrimitiveType.Cylinder, root, "Hose", new Vector3(0.12f, 0.5f, 0.06f), new Vector3(0.035f, 0.22f, 0.035f), Dark);
+            hose.transform.localRotation = Quaternion.Euler(0f, 0f, -12f);
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Nozzle", new Vector3(0.16f, 0.27f, 0.06f), new Vector3(0.06f, 0.05f, 0.06f), Dark);
+            if (wallMounted) Greybox.Box(root, "Bracket", new Vector3(0f, 0.45f, 0.16f), new Vector3(0.3f, 0.08f, 0.05f), Dark, false);
+            return root.gameObject;
+        }
+
+        // กุญแจ: ห่วง + ก้าน + ฟัน + พวงกุญแจ — ขยายใหญ่กว่าจริงนิดหน่อยให้อ่านออกจากเพดาน
+        static GameObject Key(Transform parent, string name, Vector3 position, float scale)
+        {
+            var root = new GameObject(name).transform;
+            root.SetParent(parent, false);
+            root.localPosition = position;
+            root.localScale = Vector3.one * scale;
+            var brass = new Color(0.92f, 0.8f, 0.35f);
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Bow", new Vector3(-0.1f, 0f, 0f), new Vector3(0.11f, 0.008f, 0.11f), brass);
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Bow Hole", new Vector3(-0.1f, 0.004f, 0f), new Vector3(0.045f, 0.008f, 0.045f), Dark);
+            Greybox.Box(root, "Shaft", new Vector3(0.04f, 0f, 0f), new Vector3(0.18f, 0.014f, 0.03f), brass, false);
+            for (int i = 0; i < 3; i++)
+                Greybox.Box(root, "Tooth", new Vector3(0.06f + i * 0.04f, 0f, -0.024f), new Vector3(0.02f, 0.014f, 0.025f), brass, false);
+            Greybox.Box(root, "Fob", new Vector3(-0.2f, 0f, 0.04f), new Vector3(0.08f, 0.012f, 0.05f), new Color(0.2f, 0.4f, 0.75f), false);
+            return root.gameObject;
+        }
+
+        // สายรัดของ: ม้วนสาย + หัวล็อก
+        static GameObject Strap(Transform parent, string name, Vector3 position, float scale)
+        {
+            var root = new GameObject(name).transform;
+            root.SetParent(parent, false);
+            root.localPosition = position;
+            root.localScale = Vector3.one * scale;
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Coil", Vector3.zero, new Vector3(0.24f, 0.03f, 0.24f), new Color(0.95f, 0.8f, 0.1f));
+            Greybox.Shape(PrimitiveType.Cylinder, root, "Core", new Vector3(0f, 0.01f, 0f), new Vector3(0.12f, 0.03f, 0.12f), Dark);
+            Greybox.Box(root, "Buckle", new Vector3(0.15f, 0.01f, 0f), new Vector3(0.08f, 0.03f, 0.06f), new Color(0.6f, 0.6f, 0.6f), false);
+            return root.gameObject;
         }
 
         // ---- helpers ----

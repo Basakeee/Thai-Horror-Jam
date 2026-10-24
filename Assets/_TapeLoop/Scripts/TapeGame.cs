@@ -93,9 +93,12 @@ namespace TapeLoop
         Camera cam;
         ColorAdjustments grade;
         ColorCurves curves;
+        Transform currentRoom;
+        string heldNow;
         readonly List<(GameObject go, bool negate, bool item, string key)> props = new();
         readonly Dictionary<Transform, (Renderer[] renderers, Material[][] materials, Vector3 scale)> actorLooks = new();
         readonly List<GoreRig> gores = new();
+        Transform goreAnchor;
         Vector3 camBasePosition;
         Quaternion camBaseRotation;
         Texture2D scanlines;
@@ -138,6 +141,8 @@ namespace TapeLoop
             var goreRoot = new GameObject("Gore FX (runtime)").transform;
             goreRoot.SetParent(transform, false);
             for (int i = 0; i < 4; i++) gores.Add(GoreRig.Create(goreRoot, $"Gore {i}"));
+            goreAnchor = new GameObject("Gore Anchor").transform;
+            goreAnchor.SetParent(goreRoot, false);
 
             SetupLook();
             counter = startCounter;
@@ -420,10 +425,14 @@ namespace TapeLoop
             if (player.outcome != Outcome.Running) HandleOutcome();
         }
 
-        // ฉากตาย: ดิ้น/ช็อต → ล้มในท่าตามสาเหตุ → ร่องรอยค่อย ๆ ขยาย → ค่อยขึ้นข้อความ
+        // ฉากตาย — ต้องตรงกับคำบรรยาย:
+        //   1) ห้องเปลี่ยนตามเหตุ (deathFlags: ชั้นล้ม / กระจกแตก / โทรศัพท์ตกอ่าง)
+        //   2) ตกจากที่สูง (landRoom / fallsOut): เสียหลัก → ร่วงหลุดเฟรม → ตัดไปห้องที่ศพตก หรือเหลือแต่ร่องรอย
+        //   3) ไม่งั้น: ดิ้น/กระตุก → ล้มในท่าตามสาเหตุ → ร่องรอยค่อย ๆ ขยาย
         IEnumerator DeathScene()
         {
-            var style = DeathStyles.Resolve(player.deathEvent);
+            var e = player.deathEvent;
+            var style = DeathStyles.Resolve(e);
             var actor = actors.Find(player.deadWho);
             glitchUntil = Time.unscaledTime + 0.25f;
             // เหยื่อไม่อยู่ในเฟรม (เช่น มิ้นท์ติดในห้อง ขณะเทปอยู่ที่ทางเดิน) → สลับไปกล้องห้องที่เธออยู่ แบบจอ CCTV
@@ -432,6 +441,18 @@ namespace TapeLoop
                 glitchUntil = Time.unscaledTime + 0.5f;
                 yield return new WaitForSeconds(0.35f);
             }
+
+            if (e != null && !string.IsNullOrEmpty(e.deathFlags))
+            {
+                foreach (var f in Csv.Split(e.deathFlags))
+                {
+                    if (f.StartsWith("-")) player.state.flags.Remove(f.Substring(1));
+                    else player.state.flags.Add(f);
+                }
+                ApplyProps(player.state);
+                if (style == DeathStyle.Electric) yield return new WaitForSeconds(0.35f);   // เห็นโทรศัพท์ตกน้ำก่อน แล้วค่อยช็อต
+            }
+
             if (actor != null && actor.gameObject.activeSelf)
             {
                 var anim = actor.GetComponent<FigureAnimator>();
@@ -440,38 +461,113 @@ namespace TapeLoop
                 float yaw = actor.eulerAngles.y;
                 int seed = player.deadWho.GetHashCode();
                 var gore = gores[0];
+                bool falls = e != null && (!string.IsNullOrEmpty(e.landRoom) || e.fallsOut);
 
-                float struggle = style == DeathStyle.Burn ? 1.3f : style == DeathStyle.Electric ? 1.1f : 0f;
-                for (float k = 0f; k < struggle; k += Time.deltaTime)
+                if (falls)
                 {
-                    var shake = UnityEngine.Random.insideUnitSphere * (style == DeathStyle.Electric ? 0.07f : 0.025f);
-                    shake.y = 0f;
-                    actor.position = standPos + shake;
-                    Writhe(actor, style, k);
-                    Char(actor, style == DeathStyle.Burn ? k / struggle * 0.6f : (UnityEngine.Random.value > 0.5f ? 0.55f : 0f));
-                    gore.Show(style, actor, 0.15f * k / struggle, seed);
-                    yield return null;
-                }
+                    // เสียหลัก: โน้มไปข้างหน้า แขนแกว่งหาที่จับ
+                    for (float k = 0f; k < 1f; k += Time.deltaTime / 0.4f)
+                    {
+                        actor.rotation = Quaternion.Euler(Mathf.Lerp(0f, 35f, k), yaw, 0f);
+                        Joint(actor, TapeFigure.ShoulderL, new Vector3(-140f + Mathf.Sin(k * 25f) * 30f, 0f, 35f));
+                        Joint(actor, TapeFigure.ShoulderR, new Vector3(-140f - Mathf.Sin(k * 25f) * 30f, 0f, -35f));
+                        Joint(actor, TapeFigure.HipR, new Vector3(-50f * k, 0f, 0f));
+                        yield return null;
+                    }
+                    // ร่วงลง — หลุดเฟรม
+                    Vector3 forward = Quaternion.Euler(0f, yaw, 0f) * Vector3.forward;
+                    for (float k = 0f; k < 1f; k += Time.deltaTime / 0.45f)
+                    {
+                        actor.position = standPos + forward * (k * 1.2f) + Vector3.down * (k * k * 4f);
+                        actor.rotation = Quaternion.Euler(Mathf.Lerp(35f, 130f, k), yaw, 0f);
+                        yield return null;
+                    }
 
-                float fall = style == DeathStyle.Crush ? 0.22f : 0.5f;
-                for (float k = 0f; k < 1f; k += Time.deltaTime / fall)
-                {
-                    DeathPose(actor, style, k * k, yaw, standPos);
-                    gore.Show(style, actor, 0.15f + 0.1f * k, seed);
-                    yield return null;
+                    if (!string.IsNullOrEmpty(e.landRoom) && rooms.Find(e.landRoom) != null)
+                    {
+                        // ตัดไปกล้องห้องที่ศพตก
+                        glitchUntil = Time.unscaledTime + 0.5f;
+                        yield return new WaitForSeconds(0.3f);
+                        var land = rooms.Find(e.landRoom);
+                        StageRoom(land);
+                        Subtitle($"— สลับกล้อง: {e.landRoom} —");
+                        PlaceActor(actor, land, e.landPosition, Vector2.zero);
+                        FocusOn(e.landPosition);
+                        if (anim != null) anim.enabled = false;
+                        actor.rotation = Quaternion.Euler(0f, yaw, 0f);
+                        standPos = actor.position;
+                        for (float k = 0f; k < 1f; k += Time.deltaTime / 0.18f)
+                        {
+                            DeathPose(actor, style, k, yaw, standPos);
+                            yield return null;
+                        }
+                        DeathPose(actor, style, 1f, yaw, standPos);
+                        yield return Bleed(gore, style, actor, seed, Mathf.Max(1.2f, deathSceneSeconds - 0.9f));
+                    }
+                    else
+                    {
+                        // ร่วงหายออกนอกเฟรม — เหลือแต่ร่องรอยที่ขอบ
+                        actor.gameObject.SetActive(false);
+                        goreAnchor.position = standPos;
+                        goreAnchor.rotation = Quaternion.Euler(0f, yaw, 0f);
+                        yield return Bleed(gore, style, goreAnchor, seed, Mathf.Max(1.2f, deathSceneSeconds - 0.9f));
+                    }
                 }
-                DeathPose(actor, style, 1f, yaw, standPos);
+                else
+                {
+                    float struggle = style == DeathStyle.Burn ? 1.3f : style == DeathStyle.Electric ? 1.1f : 0f;
+                    for (float k = 0f; k < struggle; k += Time.deltaTime)
+                    {
+                        var shake = UnityEngine.Random.insideUnitSphere * (style == DeathStyle.Electric ? 0.07f : 0.025f);
+                        shake.y = 0f;
+                        actor.position = standPos + shake;
+                        Writhe(actor, style, k);
+                        Char(actor, style == DeathStyle.Burn ? k / struggle * 0.6f : (UnityEngine.Random.value > 0.5f ? 0.55f : 0f));
+                        gore.Show(style, actor, 0.15f * k / struggle, seed);
+                        yield return null;
+                    }
 
-                float bleed = Mathf.Max(0.8f, deathSceneSeconds - struggle - fall);
-                for (float k = 0.25f; k < 1f; k += Time.deltaTime / bleed)
-                {
-                    gore.Show(style, actor, k, seed);
-                    yield return null;
+                    float fall = style == DeathStyle.Crush ? 0.22f : 0.5f;
+                    for (float k = 0f; k < 1f; k += Time.deltaTime / fall)
+                    {
+                        DeathPose(actor, style, k * k, yaw, standPos);
+                        gore.Show(style, actor, 0.15f + 0.1f * k, seed);
+                        yield return null;
+                    }
+                    DeathPose(actor, style, 1f, yaw, standPos);
+                    yield return Bleed(gore, style, actor, seed, Mathf.Max(0.8f, deathSceneSeconds - struggle - fall));
                 }
-                gore.Show(style, actor, 1f, seed);
             }
             yield return new WaitForSeconds(0.6f);
             HandleOutcome();
+        }
+
+        IEnumerator Bleed(GoreRig gore, DeathStyle style, Transform anchor, int seed, float seconds)
+        {
+            for (float k = 0.25f; k < 1f; k += Time.deltaTime / seconds)
+            {
+                gore.Show(style, anchor, k, seed);
+                yield return null;
+            }
+            gore.Show(style, anchor, 1f, seed);
+        }
+
+        // ห้องตามสถานะปัจจุบันของเทป (ไม่มีตัวละคร) — ใช้ตอนตัดกล้องไปห้องอื่น
+        void StageRoom(Transform room)
+        {
+            PointCamera(room);
+            foreach (var g in gores) g.Hide();
+            foreach (Transform a in actors) a.gameObject.SetActive(false);
+            ApplyProps(player.state);
+        }
+
+        void ApplyProps(SimState state)
+        {
+            foreach (var (go, negate, item, key) in props)
+            {
+                bool on = item ? state.items.Contains(key) : state.flags.Contains(key);
+                if (go.activeSelf != (on != negate)) go.SetActive(on != negate);
+            }
         }
 
         // หาชิ้นเทปล่าสุด (ตามเวลา) ที่มีเหยื่ออยู่ในเฟรม → แสดงห้องนั้น ณ ท้ายชิ้น ด้วย state ปัจจุบัน (ไฟลุก ฯลฯ)
@@ -515,6 +611,7 @@ namespace TapeLoop
                     cleared.Add(rollIndex);
                     if (Roll.isFinal) StartCoroutine(TrueEnding());
                     else if (Roll.isPeak) StartCoroutine(Peak());
+                    else if (Roll.endShots != null && Roll.endShots.Count > 0) StartCoroutine(EndScene());
                     else ShowMessage($"END — {player.winCaption}\n\n<size=26>{Roll.carryOver}</size>", 7f, () => LoadRoll(rollIndex + 1));
                     break;
             }
@@ -588,12 +685,17 @@ namespace TapeLoop
                     doer.reach = Mathf.Max(doer.reach, 1f - Mathf.Abs(since + 0.05f) / 0.55f);
             }
 
+            ShowHeld(state);
+        }
+
+        void ShowHeld(SimState state)
+        {
             var phop = actors.Find(TapeLevels.Phop);
             var arm = phop != null ? phop.Find(TapeFigure.ShoulderR) : null;
             if (arm == null) return;
-            string shown = state.items.FirstOrDefault();
+            heldNow = state.items.FirstOrDefault();
             foreach (Transform c in arm)
-                if (c.name.StartsWith("Held:")) c.gameObject.SetActive(shown != null && c.name == "Held:" + shown);
+                if (c.name.StartsWith("Held:")) c.gameObject.SetActive(heldNow != null && c.name == "Held:" + heldNow);
         }
 
         // ใครทำเหตุการณ์นี้: ชื่อขึ้นต้นคำบรรยาย > ภพ (ถ้าเป็นเรื่องของในมือ) > คนแรกในเฟรม
@@ -648,9 +750,18 @@ namespace TapeLoop
 
         void PointCamera(Transform room)
         {
+            currentRoom = room;
             camBasePosition = room.position + cameraOffset;
             camBaseRotation = Quaternion.LookRotation(room.position + new Vector3(0f, 0f, 0.4f) - camBasePosition);
             cam.transform.SetPositionAndRotation(camBasePosition, camBaseRotation);
+        }
+
+        // ศพที่อยู่ริมล่างของห้องจะโดนแถบข้อความทับ → เลื่อนกล้องตามไปเล็กน้อย (มุมเดิม)
+        void FocusOn(Vector2 local)
+        {
+            if (local.y > -0.8f) return;
+            camBasePosition += new Vector3(0f, 0f, local.y + 0.8f);
+            cam.transform.position = camBasePosition;
         }
 
         // วางตัวละครยืนตรง (ท่านั่ง/นอนเป็นงานของ FigureAnimator, ท่าศพเป็นงานของ DeathPose)
@@ -829,6 +940,7 @@ namespace TapeLoop
                 if (!w.dead.HasValue) continue;
                 if (anim != null) anim.enabled = false;
                 DeathPose(actor, w.dead.Value, 1f, actor.eulerAngles.y, actor.position);
+                FocusOn(new Vector2(w.x, w.z));
                 if (goreIndex < gores.Count) gores[goreIndex++].Show(w.dead.Value, actor, 1f, w.actor.GetHashCode());
             }
             var state = new SimState();
@@ -856,15 +968,22 @@ namespace TapeLoop
 
             var montage = new (string room, string actor, float x, float z, string flags, string caption, DeathStyle style)[]
             {
-                ("CAM 04", TapeLevels.Phop, 3.3f, 0.6f, "", "ภพ — ตกช่องบันได", DeathStyle.Fall),
+                // ต้องตรงกับฉากตายจริงของแต่ละม้วน (actor ว่าง = ไม่เห็นศพ เหลือแต่ร่องรอย)
+                ("CAM 08", TapeLevels.Phop, 2.5f, -1.9f, "", "ภพ — ตกช่องบันได ศพที่ตีนบันได", DeathStyle.Fall),
                 ("CAM 03", TapeLevels.Mint, 1.2f, -0.6f, "fire, smoke, doorLocked", "มิ้นท์ — ไฟคลอก", DeathStyle.Burn),
-                ("CAM 05", TapeLevels.Mom, 0f, 0f, "phoneOnShelf", "แม่ — ไฟดูดในอ่าง", DeathStyle.Electric),
-                ("CAM 06b", TapeLevels.Dad, 1.2f, 0f, "crack", "พ่อ — กระจกแตก", DeathStyle.Glass),
-                ("CAM 02", TapeLevels.Phop, 2.2f, 2f, "shelfTilted", "ภพ — ชั้นล้มทับ", DeathStyle.Crush),
+                ("CAM 05", TapeLevels.Mom, 0f, 0f, "phoneInTub", "แม่ — โทรศัพท์ตกอ่าง ไฟดูด", DeathStyle.Electric),
+                ("CAM 06b", "", 1.8f, 0f, "crack, glassBroken", "พ่อ — กระจกแตก ร่วงลงไปสองชั้น", DeathStyle.Glass),
+                ("CAM 02", TapeLevels.Phop, 2.2f, 2f, "shelfFallen", "ภพ — ชั้นล้มทับ", DeathStyle.Crush),
             };
             foreach (var m in montage)
             {
-                Pose(m.room, m.flags, (m.actor, m.x, m.z, m.style));
+                if (string.IsNullOrEmpty(m.actor))
+                {
+                    Pose(m.room, m.flags);
+                    goreAnchor.position = rooms.Find(m.room).position + new Vector3(m.x, 0f, m.z);
+                    gores[0].Show(m.style, goreAnchor, 1f, 7);
+                }
+                else Pose(m.room, m.flags, (m.actor, m.x, m.z, m.style));
                 overlay = m.caption;
                 glitchUntil = Time.unscaledTime + 0.4f;
                 yield return new WaitForSeconds(1.5f);
@@ -888,6 +1007,52 @@ namespace TapeLoop
             yield return new WaitForSeconds(8f);
             overlay = null;
             LoadRoll(rollIndex + 1);
+        }
+
+        // ผ่านม้วน: ตัดภาพจากกล้องหลายห้อง (คนที่รอด → สิ่งที่ทิ้งไว้) แล้วม้วนถัดไปเล่นเอง
+        IEnumerator EndScene()
+        {
+            mode = Mode.Sequence;
+            foreach (var shot in Roll.endShots)
+            {
+                if (shot.glitch) glitchUntil = Time.unscaledTime + 0.45f;
+                StageShot(shot);
+                overlay = shot.caption;
+                yield return new WaitForSeconds(Mathf.Max(0.5f, shot.seconds));
+            }
+            overlay = null;
+            LoadRoll(rollIndex + 1);
+        }
+
+        void StageShot(EndShot shot)
+        {
+            var room = rooms.Find(shot.room);
+            if (room == null) return;
+            PointCamera(room);
+            foreach (var g in gores) g.Hide();
+            foreach (Transform a in actors) a.gameObject.SetActive(false);
+            foreach (var who in shot.actors)
+            {
+                var actor = actors.Find(who.actor);
+                if (actor == null) continue;
+                PlaceActor(actor, room, who.position, Vector2.zero);
+                actor.rotation = Quaternion.Euler(0f, who.yaw, 0f);
+                var anim = actor.GetComponent<FigureAnimator>();
+                if (anim == null) continue;
+                anim.pose = who.pose;
+                anim.reach = 0f;
+                anim.talk = 0f;
+            }
+            var state = new SimState();
+            state.flags.UnionWith(Csv.Split(shot.flags));
+            state.items.UnionWith(Csv.Split(shot.items));
+            foreach (var (go, negate, item, key) in props)
+            {
+                bool on = item ? state.items.Contains(key) : state.flags.Contains(key);
+                go.SetActive(on != negate);
+            }
+            ShowHeld(state);
+            SetColorMode(shot.room == "MEMORY");
         }
 
         IEnumerator TurnToCamera(Transform who, float delay, float seconds)
@@ -991,7 +1156,9 @@ namespace TapeLoop
                 float t = fromTape ? lastTime : scrub;
                 if (seg != null)
                 {
-                    string stamp = string.IsNullOrEmpty(seg.clock) ? "MEMORY" : $"{seg.room} · {seg.ClockAt(t)}";
+                    // หลังตัดกล้อง (เช่น ศพตกลงไปชั้นล่าง) ป้ายต้องตามกล้องที่เห็นอยู่ ไม่ใช่ห้องของชิ้นเทป
+                    string room = fromTape && currentRoom != null ? currentRoom.name : seg.room;
+                    string stamp = string.IsNullOrEmpty(seg.clock) ? "MEMORY" : $"{room} · {seg.ClockAt(t)}";
                     Text(new Rect(28, 20, 900, 40), stamp, 30, Color.white);
                 }
                 Text(new Rect(28, 58, 900, 30), $"ม้วน {Roll.number}/{rolls.Count} — {Roll.title}  ·  ความตายคืนนี้: {Roll.victim}", 20, new Color(1f, 1f, 1f, 0.7f));
@@ -1008,6 +1175,7 @@ namespace TapeLoop
             for (int i = 0; i < subtitles.Count; i++)
                 Text(new Rect(100, subY - (subtitles.Count - 1 - i) * 36, w - 200, 36), subtitles[i].text, 24, Color.white, TextAnchor.MiddleCenter);
 
+            if (mode == Mode.Edit || mode == Mode.Play) ItemTags(s);   // ฉาก cinematic ไม่ต้องมีป้าย
             if (mode == Mode.Edit) EditorPanel(w, h);
 
             if (mode == Mode.Message && message != null) Band(w, h, message, messageLow);
@@ -1124,6 +1292,42 @@ namespace TapeLoop
             GUI.DrawTexture(rect, Texture2D.whiteTexture);
             GUI.color = Color.white;
             Text(new Rect(80, rect.y, w - 160, rect.height), text, low ? 32 : 38, Color.white, TextAnchor.MiddleCenter);
+        }
+
+        // ป้ายระบุของแบบระบบกล้องตรวจจับวัตถุ: [ ] รอบของที่ยังไม่ถูกหยิบ + "ถือ:" ข้างภพ
+        void ItemTags(float s)
+        {
+            if (cam == null || currentRoom == null) return;
+            foreach (var (go, negate, item, key) in props)
+            {
+                if (!item || !negate || !go.activeInHierarchy || !go.transform.IsChildOf(currentRoom)) continue;
+                Tag(go.transform.position, "▸ " + ItemName(key), s, new Color(1f, 0.95f, 0.6f), true);
+            }
+            var phop = actors.Find(TapeLevels.Phop);
+            if (heldNow != null && phop != null && phop.gameObject.activeInHierarchy)
+                Tag(phop.position + Vector3.up * 1.1f, "ถือ: " + ItemName(heldNow), s, new Color(0.75f, 0.9f, 1f), false);
+        }
+
+        void Tag(Vector3 world, string text, float s, Color color, bool bracket)
+        {
+            var sp = cam.WorldToScreenPoint(world);
+            if (sp.z < 0f) return;
+            float x = sp.x / s, y = (Screen.height - sp.y) / s;
+            if (bracket)
+            {
+                GUI.color = color;
+                const float r = 18f, l = 7f;
+                GUI.DrawTexture(new Rect(x - r, y - r, l, 2), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x - r, y - r, 2, l), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x + r - l, y - r, l, 2), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x + r - 2, y - r, 2, l), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x - r, y + r - 2, l, 2), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x - r, y + r - l, 2, l), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x + r - l, y + r - 2, l, 2), Texture2D.whiteTexture);
+                GUI.DrawTexture(new Rect(x + r - 2, y + r - l, 2, l), Texture2D.whiteTexture);
+                GUI.color = Color.white;
+            }
+            Text(new Rect(x + 22f, y - 14f, 300f, 28f), text, 18, color);
         }
 
         // ภาพเทปวิดีโอ: scanline ทั้งจอ + แถบ tracking เลื่อนผ่านเป็นระยะ + REC กะพริบ
